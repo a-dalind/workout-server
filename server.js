@@ -6,6 +6,8 @@ import dotenv from 'dotenv';
 import { prisma } from './app/prisma.js';
 import { notFound, errorHandler } from './app/middleware/error.middleware.js';
 import userRouter from './app/user/user.routes.js';
+import exerciseRouter from './app/exercise/exercise.routes.js';
+import * as path from 'path';
 
 dotenv.config();
 
@@ -15,8 +17,14 @@ async function main () {
 	if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
 	app.use(express.json());
+
+	const __dirname = path.resolve();
+
+	app.use('/uploads', express.static(path.join(__dirname, '/uploads/')));
+
 	app.use('/api/auth', authRouter);
 	app.use('/api/users', userRouter);
+	app.use('/api/exercises', exerciseRouter);
 
 	app.use(notFound);
 	app.use(errorHandler);
