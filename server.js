@@ -4,6 +4,8 @@ import authRouter from './app/auth/auth.routes.js';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import { prisma } from './app/prisma.js';
+import { notFound, errorHandler } from './app/middleware/error.middleware.js';
+import userRouter from './app/user/user.routes.js';
 
 dotenv.config();
 
@@ -14,8 +16,12 @@ async function main () {
 
 	app.use(express.json());
 	app.use('/api/auth', authRouter);
+	app.use('/api/users', userRouter);
 
-	const PORT = process.env.PORT || 4000;
+	app.use(notFound);
+	app.use(errorHandler);
+
+	const PORT = process.env.PORT || 4009;
 
 	app.listen(
 		PORT,
@@ -34,3 +40,7 @@ main()
 	await prisma.$disconnect();
 	process.exit(1);
 })
+
+// brew services restart postgresql@15
+// запускаем pgAdmin
+// теперь работает пароль
