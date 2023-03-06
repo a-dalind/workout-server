@@ -8,6 +8,7 @@ import { notFound, errorHandler } from './app/middleware/error.middleware.js';
 import userRouter from './app/user/user.routes.js';
 import exerciseRouter from './app/exercise/exercise.routes.js';
 import * as path from 'path';
+import workoutRouter from './app/workout/workout.routes.js';
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ async function main () {
 	app.use('/api/auth', authRouter);
 	app.use('/api/users', userRouter);
 	app.use('/api/exercises', exerciseRouter);
+	app.use('/api/workouts', workoutRouter);
 
 	app.use(notFound);
 	app.use(errorHandler);
