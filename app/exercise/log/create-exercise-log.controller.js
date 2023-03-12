@@ -2,11 +2,11 @@ import asyncHandler from 'express-async-handler';
 import { prisma } from '../../prisma.js';
 
 // @desc   Create new exerciseLog
-// @route  POST /api/exercises/log
+// @route  POST /api/exercises/log/:id
 // @access Private
 
 export const createNewExerciseLog = asyncHandler(async(request, response) => {
-	const exerciseId = +request.params.exerciseId;
+	const exerciseId = +request.params.id;
 
 	const exercise =  await prisma.exercise.findUnique({
 		where: {
