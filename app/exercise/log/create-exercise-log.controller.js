@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import { prisma } from '../../prisma.js';
 
-// @desc   Create new exerciseLog
+// @desc   Create new exercise log
 // @route  POST /api/exercises/log/:id
 // @access Private
 

@@ -1,5 +1,6 @@
 import { prisma } from '../prisma.js';
 import asyncHandler from 'express-async-handler';
+import { calculateMinutes } from './calculate-minutes-util.js';
 
 // @desc   Get workouts
 // @route  GET /api/workouts/:id
@@ -38,7 +39,7 @@ export const getWorkout = asyncHandler(async(request, response) => {
 		throw new Error('Workout not found')
 	}
 
-	const minutes = Math.ceil(workout.exercises.length * 5)
+	const minutes = calculateMinutes(workout.exercises.length)
 
 	response.json({...workout, minutes});
 });
